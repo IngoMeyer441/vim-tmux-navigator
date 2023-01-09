@@ -3,7 +3,7 @@
 version_pat='s/^tmux[^0-9]*([.0-9]+).*/\1/p'
 
 is_vim_or_fzf_or_ssh_or_docker="ps -o state= -o comm= -t '#{pane_tty}' \
-    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?(g?(view|n?vim?x?)(diff)?)|(fzf(-tmux)?)|(ssh)|(mosh)|(docker)|(podman)$'"
+    | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?(g?(view|l?n?vim?x?)(diff)?)|(fzf(-tmux)?)|(ssh)|(mosh)|(docker)|(podman)$'"
 tmux bind-key -n C-h if-shell "$is_vim_or_fzf_or_ssh_or_docker" "send-keys C-h" "select-pane -L"
 tmux bind-key -n C-j if-shell "$is_vim_or_fzf_or_ssh_or_docker" "send-keys C-j" "select-pane -D"
 tmux bind-key -n C-k if-shell "$is_vim_or_fzf_or_ssh_or_docker" "send-keys C-k" "select-pane -U"
