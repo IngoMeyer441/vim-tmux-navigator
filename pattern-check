@@ -33,7 +33,13 @@ match_tests=(
 )
 no_match_tests=(
   /Users/christoomey/.vim/thing
-  # /usr/local/bin/start-vim
+  /usr/local/bin/start-vim
+  start-vim
+  this_is_not_vim
+  thisisnotvim
+  /vim/is/not/final/path/segment
+  file_with_extension.vim
+  tvim # there's not yet a vi clone named 'tvim', so the pattern shouldn't match
 )
 
 MATCH_RESULT="${GREEN}match${NORMAL}"
@@ -53,12 +59,7 @@ display_matches() {
 }
 
 matches_vim_pattern() {
-  # Need to do an extra round of 'echo -en' in order to expand the '\'
-  # characters one extra time. This is necessary because
-  # vim-tmux-navigator.tmux uses the '$vim_pattern' variable inside of
-  # 'if-shell' which does its own round of '\' evaluation.
-  local expanded_vim_pattern="$(echo -en "${vim_pattern}")"
-  if echo "$1" | grep -iqE "${expanded_vim_pattern}"; then
+  if echo "$1" | grep -iqE "^${vim_pattern}$"; then
     echo "${MATCH_RESULT}"
   else
     echo "${NO_MATCH_RESULT}"
